@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Pribadi - nazriel </title>
+
+    <!-- Font dari Google Fonts: Plus Jakarta Sans untuk judul, Inter untuk teks -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =====================================================
+           RESET DASAR
+           ===================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* =====================================================
+           VARIABEL WARNA & FONT
+           ===================================================== */
+        :root {
+            --krem: #f6f1e3;
+            --putih: #ffffff;
+            --hijau-tua: #0d0d0d;
+            --hijau-muda: #bfd8b0;
+            --hijau-pucat: #eff5ea;
+            --teks-utama: #262b22;
+            --teks-lembut: #5c6b58;
+            --font-judul: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+            --font-teks: "Inter", system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-teks);
+            background-color: var(--krem);
+            color: var(--teks-utama);
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-judul);
+            color: var(--hijau-tua);
+        }
+
+        /* =====================================================
+           PANEL UTAMA (mirip "dashboard card" di gambar contoh)
+           Berisi kartu profil di kiri + konten bertab di kanan,
+           dibungkus satu panel putih besar dengan bayangan lembut.
+           ===================================================== */
+        .dashboard-panel {
+            max-width: 1040px;
+            width: 100%;
+            margin: 56px auto;
+            background-color: var(--putih);
+            border-radius: 28px;
+            box-shadow: 0 24px 60px rgba(31, 71, 56, 0.14);
+            display: flex;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        /* =====================================================
+           KARTU PROFIL (kiri)
+           ===================================================== */
+        .profile-card {
+            width: 320px;
+            flex-shrink: 0;
+            background-color: var(--hijau-pucat);
+            padding: 48px 32px;
+            text-align: center;
+        }
+
+        .avatar-wrap {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 4px solid var(--putih);
+            box-shadow: 0 8px 20px rgba(31, 71, 56, 0.15);
+        }
+
+        /* Foto asli kamu: ganti div .avatar-placeholder di HTML dengan
+           <img src="foto-kamu.jpg" alt="Foto profil [Nama Saya]" class="avatar-asli"> */
+        .avatar-wrap img.avatar-asli {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: var(--putih);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--hijau-muda);
+        }
+
+        .avatar-placeholder svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        .profile-card .sapaan {
+            font-size: 0.95rem;
+            color: var(--teks-lembut);
+            margin-bottom: 4px;
+        }
+
+        .profile-card h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .profile-card .tagline {
+            font-size: 0.95rem;
+            color: var(--teks-lembut);
+            margin-bottom: 28px;
+        }
+
+        /* Daftar info kontak: Email, Telepon, Alamat */
+        .info-list {
+            list-style: none;
+            text-align: left;
+            border-top: 1px solid rgba(31, 71, 56, 0.12);
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .info-list li {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .info-label {
+            font-size: 0.78rem;
+            color: var(--teks-lembut);
+        }
+
+        .info-value {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--teks-utama);
+            word-break: break-word;
+        }
+
+        /* =====================================================
+           AREA KONTEN BERTAB (kanan)
+           ===================================================== */
+        .content-area {
+            flex: 1;
+            padding: 48px 44px;
+            min-width: 0; /* supaya teks panjang tidak mendorong lebar panel */
+        }
+
+        .tabs {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--hijau-pucat);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-judul);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--teks-lembut);
+            padding: 12px 2px;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .tab-btn::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -2px;
+            height: 3px;
+            border-radius: 2px;
+            background-color: transparent;
+            transition: background-color 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--hijau-tua);
+        }
+
+        .tab-btn.active {
+            color: var(--hijau-tua);
+        }
+
+        .tab-btn.active::after {
+            background-color: var(--hijau-tua);
+        }
+
+        .tab-btn:focus-visible {
+            outline: 3px solid var(--hijau-tua);
+            outline-offset: 4px;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+            animation: fadeUp 0.35s ease;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+
+        /* =====================================================
+           ISI TAB "TENTANG SAYA"
+           ===================================================== */
+        .tab-panel p {
+            max-width: 62ch;
+            font-size: 1.02rem;
+        }
+
+        /* =====================================================
+           ISI TAB "PENGALAMAN" (timeline + kartu)
+           ===================================================== */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 6px;
+            bottom: 6px;
+            width: 2px;
+            background-color: var(--hijau-muda);
+        }
+
+        .kartu-pengalaman {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .kartu-pengalaman:last-child {
+            margin-bottom: 0;
+        }
+
+        .kartu-pengalaman::before {
+            content: "";
+            position: absolute;
+            left: -32px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--hijau-tua);
+            box-shadow: 0 0 0 4px var(--putih);
+        }
+
+        .kartu-isi {
+            background-color: var(--hijau-pucat);
+            border-radius: 20px;
+            padding: 28px 32px;
+        }
+
+        .kartu-isi h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .kartu-isi p {
+            color: var(--teks-utama);
+            max-width: none;
+        }
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+        footer {
+            background-color: var(--hijau-tua);
+            color: var(--krem);
+            text-align: center;
+            padding: 24px 0;
+            font-size: 0.92rem;
+        }
+
+        /* =====================================================
+           RESPONSIVE: LAYAR KECIL (HP), lebar di bawah 768px
+           ===================================================== */
+        @media (max-width: 768px) {
+            .dashboard-panel {
+                flex-direction: column;
+                margin: 24px 16px;
+                border-radius: 22px;
+            }
+
+            .profile-card {
+                width: 100%;
+                padding: 36px 28px;
+            }
+
+            .info-list {
+                text-align: center;
+            }
+
+            .info-list li {
+                align-items: center;
+            }
+
+            .content-area {
+                padding: 32px 24px 40px;
+            }
+
+            .tabs {
+                gap: 24px;
+            }
+
+            .kartu-isi {
+                padding: 22px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-panel">
+
+        <!-- ===== KARTU PROFIL (kiri): foto, sapaan, nama, deskripsi, kontak ===== -->
+        <aside class="profile-card">
+            <div class="avatar-wrap">
+                <!-- GANTI div di bawah ini dengan:
+                     <img src="foto-kamu.jpg" alt="Foto profil [Nama Saya]" class="avatar-asli">
+                     Simpan file foto di folder yang sama dengan index.html -->
+                <div class="avatar-placeholder">
+                    <img src="WhatsApp Image 2026-09-03 at 16.00.29.jpeg" alt="Foto profil" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                    </svg>
+                </div>
+            </div>
+
+            <p class="sapaan">Halo, selamat datang</p>
+            <h1>Saya Nazriel Putra Mahendra </h1>
+            <p class="tagline">
+                Saya adalah pribadi yang ingin terus belajar, bertanggung jawab, dan siap
+                berkembang melalui setiap pengalaman kerja.
+            </p>
+
+            <ul class="info-list">
+                <li>
+                    <span class="info-label">Email</span>
+                    <span class="info-value">nazrielputra967@gmail.com</span>
+                </li>
+                <li>
+                    <span class="info-label">Telepon</span>
+                    <span class="info-value">08115980802</span>
+                </li>
+                <li>
+                    <span class="info-label">Alamat</span>
+                    <span class="info-value">Balikpapan - Kalimantan timur</span>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- ===== AREA KONTEN BERTAB (kanan) ===== -->
+        <div class="content-area">
+
+            <!-- Tombol tab: klik untuk berpindah tampilan tanpa reload halaman -->
+            <nav class="tabs" role="tablist">
+                <button class="tab-btn active" data-tab="pengalaman" role="tab" aria-selected="true">Pengalaman</button>
+                <button class="tab-btn" data-tab="tentang" role="tab" aria-selected="false">Tentang Saya</button>
+            </nav>
+
+            <!-- Panel: Pengalaman Saya -->
+            <div class="tab-panel active" id="tab-pengalaman" role="tabpanel">
+                <div class="timeline">
+
+                    <article class="kartu-pengalaman">
+                        <div class="kartu-isi">
+                            <h3> MELATI ANUGERAH JAYA </h3>
+                            <p style="text-align: justify;">
+            Selama melaksanakan Praktik Kerja Lapangan (PKL) di PT Melati Anugrah Jaya,
+            saya mendapatkan banyak pengalaman dan pengetahuan baru di bidang Teknologi
+            Informasi, khususnya Teknik Komputer dan Jaringan (TKJ).
+        </p>
+
+        <p style="text-align: justify;">
+            Melalui kegiatan PKL ini, saya tidak hanya mendapatkan pengalaman dalam hal
+            teknis, tetapi juga belajar untuk lebih disiplin, teliti, bertanggung jawab,
+            dan mampu bekerja sama dengan orang lain.
+        </p>
+
+    </div>
+</article>
+
+                    <article class="kartu-pengalaman">
+                        <div class="kartu-isi">
+                            <h3>RUMAH SAKIT BALIKPAPAN BARU </h3>
+                             <p>
+            Selama melaksanakan Praktik Kerja Lapangan (PKL) di Rumah Sakit
+            Balikpapan Baru (RSBB), saya mendapatkan banyak pengalaman baru
+            di bidang Teknologi Komputer dan Jaringan. Saya belajar beradaptasi
+            dengan lingkungan kerja, bekerja sama dalam tim, serta membantu
+            menyelesaikan berbagai tugas yang diberikan.
+        </p>
+
+        <p>
+            Selama PKL, saya juga mendapatkan pengalaman dalam melakukan
+            troubleshooting komputer dan printer, instalasi perangkat,
+            serta membantu berbagai kebutuhan IT di lingkungan rumah sakit.
+            Dari pengalaman ini, saya belajar menjadi lebih disiplin, teliti,
+            bertanggung jawab, dan mampu bekerja dengan baik bersama orang lain.
+        </p>
+    </div>
+</article>
+
+                </div>
+            </div>
+
+            <!-- Panel: Tentang Saya -->
+            <div class="tab-panel" id="tab-tentang" role="tabpanel">
+              <p>
+    Saya adalah seorang siswa SMK jurusan Teknik Komputer dan Jaringan (TKJ)
+    yang memiliki ketertarikan terhadap dunia teknologi, khususnya komputer,
+    jaringan, dan berbagai perangkat IT. Dalam keseharian, saya menjalani
+    kegiatan sekolah sekaligus melaksanakan Praktik Kerja Lapangan (PKL) di
+    Rumah Sakit Balikpapan Baru (RSBB). Dari kegiatan tersebut, saya mendapatkan
+    banyak pengalaman baru dan belajar bagaimana menerapkan ilmu yang saya
+    pelajari di sekolah ke dalam lingkungan kerja secara langsung.
+</p>
+
+<p>
+    Di luar kegiatan sekolah dan PKL, saya memiliki beberapa hobi yang saya
+    sukai, seperti bermain badminton, bermain basket, dan bersepeda. Saya juga
+    senang mengunjungi tempat-tempat yang bagus dan menarik untuk menikmati
+    suasana baru serta mendapatkan pengalaman bersama teman-teman. Bagi saya,
+    melakukan berbagai kegiatan tersebut merupakan cara yang menyenangkan untuk
+    mengisi waktu luang sekaligus menjaga keseimbangan antara belajar dan
+    bersantai.
+</p>
+
+<p>
+    Untuk makanan favorit, saya sangat menyukai berbagai macam olahan ayam.
+    Sedangkan untuk minuman, saya tidak terlalu memilih karena saya suka
+    mencoba berbagai macam minuman. Saya juga termasuk orang yang senang
+    mencoba hal-hal baru dan terus belajar dari setiap pengalaman yang saya
+    dapatkan.
+</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>&copy; <span id="tahun">2026</span> Nazriel Putra Mahendra &middot; Terima kasih sudah berkunjung.</p>
+    </footer>
+
+    <script>
+        // Logika ganti tab: sembunyikan semua panel, tampilkan yang dipilih
+        const tombolTab = document.querySelectorAll('.tab-btn');
+        const panelTab = document.querySelectorAll('.tab-panel');
+
+        tombolTab.forEach(function (tombol) {
+            tombol.addEventListener('click', function () {
+                tombolTab.forEach(function (t) {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                panelTab.forEach(function (p) { p.classList.remove('active'); });
+
+                tombol.classList.add('active');
+                tombol.setAttribute('aria-selected', 'true');
+                document.getElementById('tab-' + tombol.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Perbarui tahun di footer secara otomatis
+        document.getElementById('tahun').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
